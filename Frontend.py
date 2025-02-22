@@ -9,7 +9,8 @@ question = st.text_input("Ask a question about the Titanic dataset")
 if st.button("Ask"):
     if question.strip():  # Ensure the question is not empty
         try:
-            response = requests.get(f"https://backend-oazo.onrender.com/", params={"question": question}, timeout=10)
+            response = requests.get("https://backend-oazo.onrender.com/", params={"question": question}).json()
+
 
             if response.status_code == 200:
                 data = response.json()
