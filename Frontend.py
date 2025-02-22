@@ -8,7 +8,7 @@ st.title("Titanic Data Chatbot 🚢")
 question = st.text_input("Ask a question about the Titanic dataset")
 
 if st.button("Ask"):
-    response = requests.get(f"http://127.0.0.1:8000/query/?question={question}").json()
+    response = requests.get(f"https://backend-oazo.onrender.com/?question={question}").json()
 
     if response["response"]:
         st.write(response["response"])
