@@ -1,0 +1,1 @@
+echo "fastapi\nuvicorn\nrequests\nstreamlit" > requirements.txt
