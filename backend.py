@@ -55,3 +55,9 @@ def query_titanic(question: str):
         response = llm([HumanMessage(content=question)]).content
 
     return {"response": response, "image": image_data}
+
+app = FastAPI()
+
+@app.get("/")
+def home():
+    return {"message": "API is running!"}
