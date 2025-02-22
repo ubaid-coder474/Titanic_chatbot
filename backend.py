@@ -62,8 +62,4 @@ app = FastAPI()
 def home():
     return {"message": "API is running!"}
 
-app = FastAPI()
 
-@app.get("/", methods=["GET", "HEAD"])
-def home():
-    return {"message": "API is running!"}
