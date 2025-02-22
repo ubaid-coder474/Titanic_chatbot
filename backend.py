@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -7,6 +8,7 @@ import base64
 from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage
 import os
+
 
 df = pd.read_csv("https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv")
 
@@ -62,4 +64,24 @@ app = FastAPI()
 def home():
     return {"message": "API is running!"}
 
+
+
+
+
+app = FastAPI()
+
+
+class Query(BaseModel):
+    question: str
+
+
+@app.get("/")
+async def ask_question(question: str):
+    if not question:
+        return {"error": "No question provided"}
+
+    # Dummy response (replace with real logic)
+    answer = f"You asked: {question}"
+
+    return {"response": answer}
 
