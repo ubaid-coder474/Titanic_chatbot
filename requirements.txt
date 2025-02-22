@@ -1,4 +1,4 @@
-echo fastapi > requirements.txt
-echo uvicorn >> requirements.txt
-echo requests >> requirements.txt
-echo streamlit >> requirements.txt
+fastapi
+uvicorn
+requests
+streamlit
