@@ -84,4 +84,3 @@ async def ask_question(question: str):
     answer = f"You asked: {question}"
 
     return {"response": answer}
-
