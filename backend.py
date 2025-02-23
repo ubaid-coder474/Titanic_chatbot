@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -9,15 +8,14 @@ from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage
 import os
 
-
+# Load dataset
 df = pd.read_csv("https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv")
 
+# Initialize FastAPI app
 app = FastAPI()
 
-TEMPERATURE = 0.2
-api_key = os.getenv("OPENAI_API_KEY")
-llm = ChatOpenAI(temperature=TEMPERATURE, openai_api_key=api_key)
-
+# Initialize LangChain OpenAI model (Set your API key as an env variable)
+llm = ChatOpenAI(temperature=0.2, openai_api_key=os.getenv("OPENAI_API_KEY"))
 
 
 def generate_plot_image(fig):
@@ -58,30 +56,10 @@ def query_titanic(question: str):
 
     return {"response": response, "image": image_data}
 
+
+
 app = FastAPI()
 
 @app.get("/")
-def home():
+def read_root():
     return {"message": "API is running!"}
-
-
-
-
-
-app = FastAPI()
-
-
-class Query(BaseModel):
-    question: str
-
-
-@app.get("/")
-async def ask_question(question: str):
-    if not question:
-        return {"error": "No question provided"}
-
-    # Dummy response (replace with real logic)
-    answer = f"You asked: {question}"
-
-    return {"response": answer}
-
