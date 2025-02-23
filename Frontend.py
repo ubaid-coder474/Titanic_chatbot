@@ -2,33 +2,17 @@ import streamlit as st
 import requests
 import base64
 
+# Streamlit UI
 st.title("Titanic Data Chatbot 🚢")
 
 question = st.text_input("Ask a question about the Titanic dataset")
 
 if st.button("Ask"):
-    try:
-        response = requests.get(
-            "https://backend-oazo.onrender.com/",
-            params={"question": question},
-            timeout=10
-        )
+    response = requests.get(f"http://127.0.0.1:8000/query/?question={question}").json()
 
-        st.write("Raw Response:", response.text)  # ✅ Print full response
+    if response["response"]:
+        st.write(response["response"])
 
-        if response.status_code == 200:
-            data = response.json()
-            st.write("Parsed JSON:", data)  # ✅ Print parsed JSON
-
-            if "response" in data and data["response"]:
-                st.write(data["response"])
-
-            if "image" in data and data["image"]:
-                image_bytes = base64.b64decode(data["image"])
-                st.image(image_bytes, caption="Generated Visualization")
-
-        else:
-            st.error(f"Error: Received status code {response.status_code}")
-
-    except requests.exceptions.RequestException as e:
-        st.error(f"Request failed: {e}")
+    if response["image"]:
+        image_bytes = base64.b64decode(response["image"])
+        st.image(image_bytes, caption="Generated Visualization")
